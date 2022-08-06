@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class QueueBasedOnLinkedList {
+class CircularQueue {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -13,12 +13,15 @@ class QueueBasedOnLinkedList {
 
   // 入队列
   enqueue(value) {
+    const node = new Node(value);
     if (this.head === null) {
-      this.head = new Node(value);
+      this.head = node;
+      this.head.next = this.head;
       this.tail = this.head;
     } else {
-      this.tail.next = new Node(value);
-      this.tail = this.tail.next;
+      this.tail.next = node;
+      this.tail = node;
+      this.tail.next = this.head;
     }
   }
 
@@ -29,17 +32,17 @@ class QueueBasedOnLinkedList {
     const { value } = this.head;
     if (this.head === this.tail) {
       this.head = null;
-      this.tail = null;
-      return value;
+      this.tail = this.head;
+    } else {
+      this.head = this.head.next;
+      this.tail.next = this.head;
     }
-
-    this.head = this.head.next;
     return value;
   }
 }
 
 // test
-const queue = new QueueBasedOnLinkedList();
+const queue = new CircularQueue();
 queue.enqueue(1);
 queue.enqueue(2);
 queue.enqueue(3);

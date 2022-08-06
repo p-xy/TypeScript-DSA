@@ -15,5 +15,6 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'max-classes-per-file': ['off', 'always'], // 为了方便在开发环境
   },
 };
